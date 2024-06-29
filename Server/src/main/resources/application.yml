@@ -18,7 +18,7 @@ spring:
         globally_quoted_identifiers: true
   sql:
     init:
-      mode: always
+      mode: never
 
 security:
   jwt:
