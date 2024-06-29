@@ -1,0 +1,26 @@
+#spring.application.name=Server
+
+spring:
+  application:
+    name: Server
+  mustache:
+    suffix: .html
+  datasource:
+    url: jdbc:postgresql://localhost:5500/happybaras
+    username: postgres
+    password: Abrilar-542
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+  sql:
+    init:
+      mode: always
+
+security:
+  jwt:
+    secret: "59f87ecb-8e9a-4942-919a-e32837a95dc1"
+    exptime: 1296000000
