@@ -1,13 +1,16 @@
-# Use the latest Gradle image with JDK 17 to build the project
+# Etapa de construcción
 FROM gradle:7.5.1-jdk17 AS build
 WORKDIR /app
-COPY Server/build.gradle Server/settings.gradle ./
-COPY Server/src ./src
-RUN gradle build --no-daemon -x test
+COPY Server/gradle /app/gradle
+COPY Server/gradlew /app/gradlew
+COPY Server/build.gradle /app/build.gradle
+COPY Server/settings.gradle /app/settings.gradle 
+COPY Server/src /app/src
+RUN chmod +x ./gradlew
+RUN ./gradlew clean build --no-daemon -x test
 
-# Use a Tomcat image with JDK 17 to deploy the application
-FROM tomcat:9.0.90-jdk17-temurin-jammy
-WORKDIR /usr/local/tomcat/webapps/
-COPY --from=build /app/build/libs/*.war /usr/local/tomcat/webapps/ROOT.war
-EXPOSE 8080
-CMD ["catalina.sh","run"]
+# Etapa de ejecución
+FROM gradle:7.5.1-jdk17
+WORKDIR /app
+COPY --from=build /app /app
+CMD ["./gradlew", "bootRun"]

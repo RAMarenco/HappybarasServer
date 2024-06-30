@@ -9,7 +9,11 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=Abrilar-542
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      
+    depends_on:
+      - database
+    networks:
+      - happybaras-network
+
   database:
     image: postgres:latest
     environment:
@@ -18,3 +22,9 @@ services:
       POSTGRES_PASSWORD: Abrilar-542
     ports:
       - "5500:5432"
+    networks:
+      - happybaras-network
+
+networks:
+  happybaras-network:
+    driver: bridge
