@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  server:
+    build: .
+    ports:
+      - "8000:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/happybaras
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=Abrilar-542
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: happybaras
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Abrilar-542
+    ports:
+      - "5500:5432"
