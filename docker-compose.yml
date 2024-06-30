@@ -12,7 +12,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=Abrilar-542
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    command: ["./gradlew", "bootRun"]
+    entrypoint: ["sh", "-c", "cd /app && chmod +x gradlew && ls -ll && gradle bootRun"]
     depends_on:
       - database
     networks:
