@@ -1,7 +1,10 @@
 version: '3.8'
 services:
   server:
-    build: .
+    image: gradle:7.5.1-jdk17
+    working_dir: /app
+    volumes:
+      - ./Server:/app
     ports:
       - "8000:8080"
     environment:
@@ -9,6 +12,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=Abrilar-542
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    command: ["./gradlew", "bootRun"]
     depends_on:
       - database
     networks:
